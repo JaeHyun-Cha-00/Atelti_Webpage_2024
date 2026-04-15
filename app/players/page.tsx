@@ -3,11 +3,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getSquad, SquadPlayer } from "@/lib/footballdata";
 
 const positionColor: Record<string, string> = {
-  "Goalkeeper": "bg-yellow-100 text-yellow-800",
-  "Defender": "bg-blue-100 text-blue-800",
-  "Midfielder": "bg-green-100 text-green-800",
-  "Forward": "bg-red-100 text-red-800",
-  "Offence": "bg-red-100 text-red-800",
+  GK: "bg-yellow-100 text-yellow-800",
+  DF: "bg-blue-100 text-blue-800",
+  MF: "bg-green-100 text-green-800",
+  FW: "bg-red-100 text-red-800",
 };
 
 function getAge(dateOfBirth: string): number {
@@ -19,17 +18,19 @@ function getAge(dateOfBirth: string): number {
   return age;
 }
 
+const GK = ["Goalkeeper"];
+const DF = ["Defence", "Defender", "Centre-Back", "Right-Back", "Left-Back"];
+const MF = ["Midfield", "Midfielder", "Left Midfield", "Right Midfield", "Defensive Midfield", "Central Midfield", "Attacking Midfield"];
+const FW = ["Offence", "Forward", "Centre-Forward", "Right Winger", "Left Winger"];
+
 function groupPlayers(squad: SquadPlayer[]) {
-  const groups: Record<string, SquadPlayer[]> = {
-    Goalkeeper: [],
-    Defender: [],
-    Midfielder: [],
-    Forward: [],
-  };
+  const groups: Record<string, SquadPlayer[]> = { GK: [], DF: [], MF: [], FW: [] };
   for (const p of squad) {
-    if (p.position in groups) groups[p.position].push(p);
-    else if (p.position === "Offence") groups.Forward.push(p);
-    else groups.Forward.push(p);
+    if (GK.includes(p.position)) groups.GK.push(p);
+    else if (DF.includes(p.position)) groups.DF.push(p);
+    else if (MF.includes(p.position)) groups.MF.push(p);
+    else if (FW.includes(p.position)) groups.FW.push(p);
+    else groups.FW.push(p); // fallback
   }
   return groups;
 }
@@ -70,7 +71,7 @@ export default async function PlayersPage() {
         <div>
           <h1 className="text-3xl font-bold">Squad</h1>
           <p className="text-muted-foreground">
-            Atlético Madrid 2024-25 · Coach: {coach.name}
+            Atlético Madrid 2025-26 · Coach: {coach.name}
           </p>
         </div>
       </div>
@@ -90,8 +91,8 @@ export default async function PlayersPage() {
                       {getFlagEmoji(player.nationality)}
                     </div>
                     <h3 className="font-semibold text-sm mb-2 leading-tight">{player.name}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${positionColor[player.position] ?? "bg-gray-100 text-gray-800"}`}>
-                      {player.position}
+                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${positionColor[group]}`}>
+                      {group}
                     </span>
                     <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
                       <span>{player.nationality}</span>
