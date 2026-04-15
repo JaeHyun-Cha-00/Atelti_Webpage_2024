@@ -1,28 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
 import { getSquad, SquadPlayer } from "@/lib/footballdata";
-
-const positionColor: Record<string, string> = {
-  Goalkeeper: "bg-yellow-100 text-yellow-800",
-  Defender: "bg-blue-100 text-blue-800",
-  Midfielder: "bg-green-100 text-green-800",
-  Forward: "bg-red-100 text-red-800",
-};
-
-function getAge(dateOfBirth: string): number {
-  const today = new Date();
-  const birth = new Date(dateOfBirth);
-  let age = today.getFullYear() - birth.getFullYear();
-  const m = today.getMonth() - birth.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
-  return age;
-}
+import PlayerCard from "@/components/PlayerCard";
 
 const GK = ["Goalkeeper"];
 const DF = ["Defence", "Defender", "Centre-Back", "Right-Back", "Left-Back"];
 const MF = ["Midfield", "Midfielder", "Left Midfield", "Right Midfield", "Defensive Midfield", "Central Midfield", "Attacking Midfield"];
-const FW = ["Offence", "Forward", "Centre-Forward", "Right Winger", "Left Winger"];
 
 function groupPlayers(squad: SquadPlayer[]) {
   const groups: Record<string, SquadPlayer[]> = {
@@ -38,18 +20,6 @@ function groupPlayers(squad: SquadPlayer[]) {
     else groups.Forward.push(p);
   }
   return groups;
-}
-
-function getFlagEmoji(nationality: string): string {
-  const flags: Record<string, string> = {
-    "Spain": "🇪🇸", "France": "🇫🇷", "Argentina": "🇦🇷", "Brazil": "🇧🇷",
-    "Portugal": "🇵🇹", "Germany": "🇩🇪", "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Netherlands": "🇳🇱",
-    "Belgium": "🇧🇪", "Uruguay": "🇺🇾", "Slovenia": "🇸🇮", "Croatia": "🇭🇷",
-    "Morocco": "🇲🇦", "Nigeria": "🇳🇬", "Mozambique": "🇲🇿", "Colombia": "🇨🇴",
-    "Mexico": "🇲🇽", "Chile": "🇨🇱", "Paraguay": "🇵🇾", "Serbia": "🇷🇸",
-    "Poland": "🇵🇱", "Turkey": "🇹🇷", "Czech Republic": "🇨🇿",
-  };
-  return flags[nationality] ?? "🌍";
 }
 
 export default async function PlayersPage() {
@@ -87,29 +57,9 @@ export default async function PlayersPage() {
             <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">
               {group}s
             </h2>
-
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {players.map((player) => (
-                <Link key={player.id} href={`/players/${player.id}`}>
-                <Card className="hover:shadow-lg transition-shadow group cursor-pointer">
-                  <CardContent className="p-4 flex flex-col items-center text-center">
-                    {/* Avatar placeholder */}
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-2xl mb-3 group-hover:bg-primary/20 transition-colors">
-                      {getFlagEmoji(player.nationality)}
-                    </div>
-                    <h3 className="font-semibold text-sm mb-2 leading-tight">{player.name}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${positionColor[group]}`}>
-                      {group}
-                    </span>
-                    <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
-                      <span>{player.nationality}</span>
-                      {player.dateOfBirth && (
-                        <span>· {getAge(player.dateOfBirth)} yrs</span>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-                </Link>
+                <PlayerCard key={player.id} player={player} group={group} />
               ))}
             </div>
           </section>
