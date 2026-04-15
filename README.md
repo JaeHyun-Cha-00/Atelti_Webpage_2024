@@ -1,87 +1,36 @@
-# Atleti Stats
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Overview
-Atleti Stats is a web application designed to showcase detailed player statistics, match schedules, and other related information about Atlético Madrid. The project is built to provide an engaging and user-friendly interface for fans and analysts of Atlético Madrid.
+## Getting Started
 
----
+First, run the development server:
 
-## Features
-- **Player Statistics**: Display player cards with detailed statistics for Atlético Madrid’s first-team squad.
-- **Match Schedule**: Fetch and display upcoming match schedules.
-- **Chatbot Integration**: Basic chatbot structure to enhance user interaction.
-- **Interactive Navigation**: Links to Players, Home, and Match Schedule pages for seamless navigation.
-
----
-
-## Tech Stack
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Django (Python)
-- **API Integration**: API-Sports
-- **Design**: Figma
-- **Version Control**: Git & GitHub
-- **Other Tools**: Visual Studio Code, ChatGPT
-
----
-
-## Project Structure
-```
-football_injury/
-├── my_project/
-│   ├── templates/
-│   │   ├── index.html
-│   │   ├── players.html
-│   │   └── schedule.html
-│   └── ...
-├── static/
-├── ...
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
----
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/atleti-stats.git
-   ```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-2. Navigate to the project directory:
-   ```bash
-   cd atleti-stats
-   ```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Learn More
 
-4. Run the server:
-   ```bash
-   python manage.py runserver
-   ```
+To learn more about Next.js, take a look at the following resources:
 
-5. Open the application in your browser:
-   ```
-   http://127.0.0.1:8000
-   ```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
----
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Future Plans
-- **Enhanced Chatbot**: Integrate an external API for smarter chatbot responses.
-- **Machine Learning**: Implement a machine learning model to analyze player performance.
-- **UI/UX Improvements**: Further enhance the design and responsiveness of the web pages.
+## Deploy on Vercel
 
----
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Contributions
-Feel free to fork the repository and submit pull requests for new features or bug fixes. For major changes, please open an issue to discuss what you would like to contribute.
-
----
-
-## License
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## Contact
-For inquiries, please contact [j4cha@ucsd.edu].
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
