@@ -3,10 +3,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getSquad, SquadPlayer } from "@/lib/footballdata";
 
 const positionColor: Record<string, string> = {
-  GK: "bg-yellow-100 text-yellow-800",
-  DF: "bg-blue-100 text-blue-800",
-  MF: "bg-green-100 text-green-800",
-  FW: "bg-red-100 text-red-800",
+  Goalkeeper: "bg-yellow-100 text-yellow-800",
+  Defender: "bg-blue-100 text-blue-800",
+  Midfielder: "bg-green-100 text-green-800",
+  Forward: "bg-red-100 text-red-800",
 };
 
 function getAge(dateOfBirth: string): number {
@@ -24,13 +24,17 @@ const MF = ["Midfield", "Midfielder", "Left Midfield", "Right Midfield", "Defens
 const FW = ["Offence", "Forward", "Centre-Forward", "Right Winger", "Left Winger"];
 
 function groupPlayers(squad: SquadPlayer[]) {
-  const groups: Record<string, SquadPlayer[]> = { GK: [], DF: [], MF: [], FW: [] };
+  const groups: Record<string, SquadPlayer[]> = {
+    Goalkeeper: [],
+    Defender: [],
+    Midfielder: [],
+    Forward: [],
+  };
   for (const p of squad) {
-    if (GK.includes(p.position)) groups.GK.push(p);
-    else if (DF.includes(p.position)) groups.DF.push(p);
-    else if (MF.includes(p.position)) groups.MF.push(p);
-    else if (FW.includes(p.position)) groups.FW.push(p);
-    else groups.FW.push(p); // fallback
+    if (GK.includes(p.position)) groups.Goalkeeper.push(p);
+    else if (DF.includes(p.position)) groups.Defender.push(p);
+    else if (MF.includes(p.position)) groups.Midfielder.push(p);
+    else groups.Forward.push(p);
   }
   return groups;
 }
@@ -82,6 +86,7 @@ export default async function PlayersPage() {
             <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">
               {group}s
             </h2>
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {players.map((player) => (
                 <Card key={player.id} className="hover:shadow-lg transition-shadow group cursor-pointer">
