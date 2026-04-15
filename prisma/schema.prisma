@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model NewsPost {
+  id          String   @id @default(cuid())
+  externalId  String   @unique // X post ID
+  author      String
+  handle      String
+  content     String
+  category    String
+  likes       Int      @default(0)
+  retweets    Int      @default(0)
+  postedAt    DateTime
+  createdAt   DateTime @default(now())
+}
+
+model Match {
+  id          String   @id @default(cuid())
+  externalId  String   @unique // football-data.org match ID
+  homeTeam    String
+  awayTeam    String
+  homeScore   Int?
+  awayScore   Int?
+  utcDate     DateTime
+  status      String
+  competition String
+  matchday    Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Player {
+  id          String   @id @default(cuid())
+  externalId  String   @unique
+  name        String
+  position    String?
+  nationality String?
+  number      String?
+  dateOfBirth DateTime?
+  imageUrl    String?
+  marketValue String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
