@@ -33,11 +33,15 @@ export async function getAtletiNews(limit = 20): Promise<NewsItem[]> {
     "https://news.google.com/rss/search?q=Atletico+Madrid&hl=en-US&gl=US&ceid=US:en"
   );
 
-  return feed.items.slice(0, limit).map((item) => ({
-    title: item.title ?? "",
+  return feed.items.slice(0, limit).map((item) => {
+    const source = (item as { source?: string }).source ?? item.creator ?? "Unknown";
+    const title = (item.title ?? "").replace(new RegExp(`\\s*-\\s*${source}\\s*$`), "").trim();
+    return {
+    title,
     link: item.link ?? "",
     pubDate: timeAgo(item.pubDate ?? ""),
-    source: (item as { source?: { _: string } }).source?._ ?? item.creator ?? "Unknown",
+    source,
     snippet: stripHtml(item.content ?? item.contentSnippet ?? ""),
-  }));
+  };
+  });
 }
