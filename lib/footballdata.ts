@@ -75,9 +75,6 @@ export interface TeamDetail {
   squad: SquadPlayer[];
 }
 
-export async function getSquad(): Promise<TeamDetail> {
-  return fetchFD<TeamDetail>(`/teams/${ATLETICO_ID}`);
-}
 
 export interface StandingEntry {
   position: number;
